@@ -1,0 +1,17 @@
+{
+  "name": "wpd_gulp_setup",
+  "description": "Gulp Setup fpr WP-Dev",
+  "version": "1.2.0",
+  "author": "Julian Troeps",
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-watch": "*",
+    "gulp-sass": "*",
+    "gulp-clean-css": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-concat": "*",
+    "gulp-rename": "*",
+    "gulp-uglify": "*"
+  }
+}
