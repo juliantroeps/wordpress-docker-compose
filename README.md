@@ -17,7 +17,7 @@ Run WordPress dockerized for local development.
 - cd into ./tools
 - Update themename variable in `createtheme.sh` and run `sh createtheme.sh` to create our empty theme files
 
-####Gulp taskrunner	
+#### Gulp taskrunner	
 - Update themename variable in `gulpfile.js`
 - Run `npm install`
 - Run `gulp` to watch for styles (sass) and scripts (js)
