@@ -1,47 +1,50 @@
-# Wordpress Docker Starterkit
-Personal WordPress Theme Development Starter Kit based on personel preferences. Edit (or leave) the MySQL- & Host-Ports and `docker-compose up -d`. Go through WordPress Setup. Set `var themename` to your theme folder in /wp-content/themes, save, setup files and `gulp watch` or `gulp` to watch for file changes. 
-For DB management open phpMyAdmin on port http://localhost:8000 (or yours)
+# Wordpress docker-compose Starterkit
+Run WordPress dockerized for local development.
 
-## docker-compose.yml
-Run the Wordpress Installation in a docker container on http://localhost:XXXX
-- WordPress Latest
-- MariaDB
-- phpMyAdmin
+## Container
+- WordPress from `wordpress:latest`
+- mySQL from `mariadb`
+- wpcli from `tatemz/wp-cli` 
 
-## gulpfile.js
-Assets compiling in my own file structure inside the Wordpress content folder (themes, uploads)
-- Sass minifing, source mapping
-- js compiling, minifing
+## Install
+- Clone the repo 
+- Run `docker-compose up` or `docker-compose up -d`
+- Visit `http://localhost:3001`
 
-## Changelog
-- 23.10.17
-	+ gulpfile v0.4
-		- removed image optimization
-    	- changed whole script task
-    	- changed file-structure ("/" -> "/src" + "/dist")
-    	- changed default task to watch task
-    + package.json
-    	- changed name (bug npm install ERR)
-    	- changed version x.x -> x.x.x (bug npm install ERR)
-- 06.10.17 
-	+ gulpfile v0.3
-		- themename variable
-    	- changed folder structure
-    	- removed versions, added changelog, changed meta
-    + docker-compose
-    	- changed wordpress version to latest
+## Tools
+
+#### Create theme
+- cd into ./tools
+- Update themename variable in `createtheme.sh` and run `sh createtheme.sh` to create our empty theme files
+
+####Gulp taskrunner	
+- Update themename variable in `gulpfile.js`
+- Run `npm install`
+- Run `gulp` to watch for styles (sass) and scripts (js)
+
+The working directories are:
+./assets/[type]/src/subdirectories/files.[type]
+  
+Our ready files are :
+./assets/[type]/dist/subdirectories/main[.min].[type]
+
+#### Backups
+- cd into ./tools
+- Run `sh export.sh` to create a zipped database drop and wp-content folder
+
+#### WP_CLI
+Additionally we added a wp_cli container to accces your WordPress-Install via your terminal etc.
+
+Access: `$ docker-compose run --rm wpd_wpcli` or use `wp` as an command alias `$ alias wp="docker-compose run --rm wpd_wpcli"`
+
+Visit docs for more info (http://wp-cli.org/de/)
+
+
+    
+#### Using existing content
+Before you run `docker-compose up` put your .sql file inside `./data` to use your data instead of creating empty tables.
+Make sure to update the wpd_wordpress environment variable `WORDPRESS_TABLE_PREFIX` in the `docker-compose.yml` file. (default is wpd\_)
+
 
 ## Todo
-- gulpfile
-	+ image-optimization, gzip files
-- package.json
-	+ ~~check versions~~
-- shell scripts
-	+ set table prefix
-	+ db export
-	+ auto create theme files
-- docker-compose 
-	+ switch images (own image?)
-	+ set table prefix^
-
-### work-in-progress
+- Gulp image optimization (wp-content/uploads/**)

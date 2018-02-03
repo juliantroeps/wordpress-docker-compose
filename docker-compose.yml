@@ -1,21 +1,34 @@
-wordpress:
-  volumes:
-    - ./www:/var/www/html
-  image: wordpress:latest
-  links:
-    - wordpress_db:mysql
-  ports:
-    - 3000:80
-wordpress_db:
-  image: mariadb
-  environment:
-    MYSQL_ROOT_PASSWORD: root
-phpmyadmin:
-  image: corbinu/docker-phpmyadmin
-  links:
-    - wordpress_db:mysql
-  ports:
-    - 8000:80
-  environment:
-    MYSQL_USERNAME: root
-    MYSQL_ROOT_PASSWORD: root
+version: '2'
+services:
+  wpd_wordpress:
+    image: wordpress:latest
+    ports:
+      - 3001:80
+    volumes:
+      - ./php_config/php.conf.uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./www:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_TABLE_PREFIX: wpd_
+    links:
+      - wpd_db:mysql
+
+  wpd_db:
+    image: mariadb
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d  
+
+  wpd_wpcli:
+    image: tatemz/wp-cli
+    volumes_from:
+      - wpd_wordpress
+    links:
+      - wpd_db:mysql
+    entrypoint: wp
+    command: "--info"

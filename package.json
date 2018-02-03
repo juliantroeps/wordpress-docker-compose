@@ -1,17 +1,17 @@
 {
-  "name": "wpd_gulp_setup",
-  "description": "Gulp Setup fpr WP-Dev",
-  "version": "1.2.0",
+  "name": "wordpress-docker-compose",
+  "version": "1.0.0",
+  "description": "just for Gulp I think",
   "author": "Julian Troeps",
   "devDependencies": {
-    "gulp": "*",
-    "gulp-watch": "*",
-    "gulp-sass": "*",
-    "gulp-clean-css": "*",
-    "gulp-sourcemaps": "*",
-    "gulp-autoprefixer": "*",
-    "gulp-concat": "*",
-    "gulp-rename": "*",
-    "gulp-uglify": "*"
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^1.12.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^5.0.0"
   }
 }
