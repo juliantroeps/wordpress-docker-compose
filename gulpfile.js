@@ -10,7 +10,7 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 
-var themename = "changeHere";
+var themename = "YOUR_THEMENAME";
 
 
 // Main sass compiling
@@ -25,7 +25,7 @@ gulp.task('sass', function () {
 });
 
 // Compile all sass files to main WordPress stylesheet (remeber to add the header comment)
-gulp.task('sass_to_main_styles', function () {
+gulp.task('single_file', function () {
     return gulp.src('./www/wp-content/themes/' + themename +'/assets/css/src/**/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))

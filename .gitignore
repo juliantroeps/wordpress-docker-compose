@@ -1,0 +1,30 @@
+# Remove all '## '
+
+## /*
+## node_modules
+## bower_components
+## !.gitignore
+## !docker-compose.yml
+## !export.sh
+## !gulpfile.js
+## !README.md
+## !package.json
+
+
+## !ppconfig
+## !data/
+## !docs/
+
+## !www/
+## www/*
+## !www/wp-content/
+## !www/.htaccess
+## !www/wp-config.php
+
+## www/wp-content/*
+## !www/wp-content/themes/
+
+## www/wp-content/themes/*
+## !www/wp-content/themes/vkd/
+
+
