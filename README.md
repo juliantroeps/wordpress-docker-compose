@@ -24,9 +24,7 @@ Run WordPress dockerized for local development.
 - Use `gulp single_file` to compile our CSS in the WordPress style.css file. Don't forget the WordPress File-Header.
 
 The working directories are:
-./assets/[type]/src/subdirectories/files.[type]
-
-JavaScript and CSS files are minified by default. Comment out line 21 to uglify the file. 
+./assets/[type]/src/\*\*/\*.[type]
   
 Our ready files are :
 ./assets/[type]/dist/main[.min].[type]
