@@ -1,5 +1,4 @@
 // The Gulpfile.
-
 var gulp = require('gulp');
 var watch = require('gulp-watch');
 var sass = require('gulp-sass');
@@ -10,12 +9,14 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 
+// Theme and path
 var themename = "YOUR_THEMENAME";
 var assets_path = './www/wp-content/themes/' + themename + '/assets/';
 
+// Ordered scripts for gulp-concat
 var jsfiles = [
-    assets_path + 'js/file0.js'
-    assets_path + 'js/vendor/file1.js'
+    assets_path + 'js/script-1.js',
+    assets_path + 'js/vendor/script-2.js'
 ];
  
 // Main sass compiling

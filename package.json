@@ -1,7 +1,7 @@
 {
   "name": "wordpress-docker-compose",
   "version": "1.0.0",
-  "description": "just for Gulp I think",
+  "description": "CSS preprocessor and script handling",
   "author": "Julian Troeps",
   "devDependencies": {
     "gulp": "^3.9.1",

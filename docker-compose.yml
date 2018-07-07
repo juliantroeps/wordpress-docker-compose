@@ -1,6 +1,6 @@
 version: '2'
 services:
-  wpd_wordpress:
+  wordpress:
     image: wordpress:latest
     ports:
       - 3001:80
@@ -14,21 +14,12 @@ services:
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_TABLE_PREFIX: wpd_
     links:
-      - wpd_db:mysql
+      - database:mysql
 
-  wpd_db:
+  database:
     image: mariadb
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_ROOT_PASSWORD: password
     volumes:
-      - ./data:/docker-entrypoint-initdb.d  
-
-  wpd_wpcli:
-    image: tatemz/wp-cli
-    volumes_from:
-      - wpd_wordpress
-    links:
-      - wpd_db:mysql
-    entrypoint: wp
-    command: "--info"
+      - ./data:/docker-entrypoint-initdb.d

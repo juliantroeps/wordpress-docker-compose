@@ -4,7 +4,6 @@ Run WordPress dockerized for local development.
 ## Container
 - WordPress from `wordpress:latest`
 - mySQL from `mariadb`
-- wpcli from `tatemz/wp-cli` 
 
 ## Install
 - `git clone https://github.com/juliantroeps/WordPress-docker-compose.git myproject` 
@@ -23,28 +22,13 @@ Run WordPress dockerized for local development.
 - Run `gulp` or `gulp watch` to watch for styles (sass) and scripts (js)
 - Use `gulp single_file` to compile our CSS in the WordPress style.css file. Don't forget the WordPress File-Header.
 
-The working directories are:
-./assets/[type]/src/\*\*/\*.[type]
-  
-Our ready files are :
-./assets/[type]/dist/main[.min].[type]
-
 #### Backups
 - cd into ./tools
 - Run `sh export.sh` to create a zipped database drop and wp-content folder
-
-#### WP_CLI
-Additionally we added a wp_cli container to accces your WordPress-Install via your terminal etc.
-
-Access: `docker-compose run --rm wpd_wpcli` or use `wp` as an command alias `alias wp="docker-compose run --rm wpd_wpcli"`
-
-Visit docs for more info (http://wp-cli.org/de/)
-
 
 #### Using existing content
 Before you run `docker-compose up` put your .sql file inside `./data` to use your data instead of creating empty tables.
 Make sure to update the wpd_wordpress environment variable `WORDPRESS_TABLE_PREFIX` in the `docker-compose.yml` file. (default is wpd\_)
 
-
 ## Todo
-- Gulp image optimization (wp-content/uploads/**)
+- Gulp image optimization (wp-content/uploads/)
