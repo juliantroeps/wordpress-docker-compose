@@ -1,5 +1,5 @@
 # Wordpress docker-compose Starterkit
-Run WordPress dockerized for local development.
+Local WordPress development with docker-compose and gulp-sass.
 
 ## Container
 - WordPress from `wordpress:latest`
@@ -9,6 +9,8 @@ Run WordPress dockerized for local development.
 - `git clone https://github.com/juliantroeps/WordPress-docker-compose.git myproject` 
 - `cd myproject` and `docker-compose up` or `docker-compose up -d`
 - `open http://localhost:3001` and install your WordPress-Site
+
+Change the docker-file wordpress-service port to `80:80` if you want to build a WordPress-Network.
 
 ## Tools
 
@@ -29,6 +31,9 @@ Run WordPress dockerized for local development.
 #### Using existing content
 Before you run `docker-compose up` put your .sql file inside `./data` to use your data instead of creating empty tables.
 Make sure to update the wpd_wordpress environment variable `WORDPRESS_TABLE_PREFIX` in the `docker-compose.yml` file. (default is wpd\_)
+
+## Production
+You can use this configuation in production to. Expose the wordpress-sevice on port 80 and use the `wordpress:4.9.7-php7.0` image instead of the latest tag.
 
 ## Todo
 - Gulp image optimization (wp-content/uploads/)
