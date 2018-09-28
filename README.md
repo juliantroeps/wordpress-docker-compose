@@ -22,7 +22,6 @@ Change the docker-file wordpress-service port to `80:80` if you want to build a 
 - Update themename variable in `gulpfile.js`
 - Run `npm install`
 - Run `gulp` or `gulp watch` to watch for styles (sass) and scripts (js)
-- Use `gulp single_file` to compile our CSS in the WordPress style.css file. Don't forget the WordPress File-Header.
 
 #### Backups
 - cd into ./tools
