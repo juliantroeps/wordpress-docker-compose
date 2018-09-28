@@ -16,7 +16,7 @@ Change the docker-file wordpress-service port to `80:80` if you want to build a 
 
 #### Create theme
 - cd into ./tools
-- Update themename variable in `createtheme.sh` and run `sh createtheme.sh` to create our empty theme files
+- Run `sh createtheme.sh your-theme-name` to create our empty theme files
 
 #### Gulp taskrunner	
 - Update themename variable in `gulpfile.js`
@@ -29,11 +29,11 @@ Change the docker-file wordpress-service port to `80:80` if you want to build a 
 - Run `sh export.sh` to create a zipped database drop and wp-content folder
 
 #### Using existing content
-Before you run `docker-compose up` put your .sql file inside `./data` to use your data instead of creating empty tables.
+Put your .sql file inside `./data` and run `docker-compose up` to use your data instead of creating empty tables.
 Make sure to update the wpd_wordpress environment variable `WORDPRESS_TABLE_PREFIX` in the `docker-compose.yml` file. (default is wpd\_)
 
 ## Production
-You can use this configuation in production to. Expose the wordpress-sevice on port 80 and use the `wordpress:4.9.7-php7.0` image instead of the latest tag.
+You can use this configuation in production too. Expose the wordpress-sevice on port 80 and use the `wordpress:4.9.8-php7.0` image instead of the latest tag.
 
 ## Todo
 - Gulp image optimization (wp-content/uploads/)

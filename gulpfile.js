@@ -9,14 +9,16 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 
-// Theme and path
-var themename = "YOUR_THEMENAME";
+// Theme-Name
+var themename = "your-theme-name";
+
+// Path to assets
 var assets_path = './www/wp-content/themes/' + themename + '/assets/';
 
-// Ordered scripts for gulp-concat
+// Ordered scripts for gulp-concat (add your main file last)
 var jsfiles = [
-    assets_path + 'js/script-1.js',
-    assets_path + 'js/vendor/script-2.js'
+    assets_path + 'js/vendor/bootstrap.js',
+    assets_path + 'js/src/main.js'
 ];
  
 // Main sass compiling
@@ -28,18 +30,6 @@ gulp.task('sass', function () {
         .pipe(autoprefixer({ browsers: ['last 2 version', '> 5%'] }))
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest(assets_path + 'css/dist'));
-});
-
-// Compile all sass files to main WordPress stylesheet (remeber to add the header comment)
-gulp.task('single_file', function () {
-    return gulp.src(assets_path + 'css/src/**/*.scss')
-        .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCSS({compatibility: 'ie9'}))
-        .pipe(autoprefixer({ browsers: ['last 2 version', '> 5%'] }))
-        .pipe(sourcemaps.write('/'))
-        .pipe(rename('style.css'))
-        .pipe(gulp.dest('./www/wp-content/themes/'));
 });
 
 // Main script compiling
@@ -54,8 +44,8 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(assets_path + 'js/dist'));
 });
 
-// All scripts compiling
-gulp.task('concat', function() {
+// Concatenate all scripts from jsfiles array
+gulp.task('scripts_concat', function() {
     return gulp.src(jsfiles)
         .pipe(concat('all.js'))
         .pipe(gulp.dest(assets_path + 'js/dist'))
