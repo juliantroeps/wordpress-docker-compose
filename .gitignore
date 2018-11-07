@@ -1,4 +1,5 @@
-# Remove all '## '
+# Search for '## ' and replace it with '' ========
+# Add your PLUGINNAME or/and THEMENAME below =====
 
 ## /*
 ## node_modules
@@ -10,21 +11,31 @@
 ## !README.md
 ## !package.json
 
+# Development stuff ==============================
 
-## !ppconfig
+## !php_config
 ## !data/
 ## !docs/
+
+# Keep the important files =======================
 
 ## !www/
 ## www/*
 ## !www/wp-content/
 ## !www/.htaccess
 ## !www/wp-config.php
-
 ## www/wp-content/*
+
+# Theme development ==============================
+
 ## !www/wp-content/themes/
 
 ## www/wp-content/themes/*
-## !www/wp-content/themes/vkd/
+## !www/wp-content/themes/THEMENAME/
 
+# Plugin development =============================
 
+## !www/wp-content/plugins/
+
+## www/wp-content/plugins/*
+## !www/wp-content/plugins/PLUGINNAME/
