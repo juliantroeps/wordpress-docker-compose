@@ -56,9 +56,9 @@ gulp.task('scripts_concat', function() {
 
 // We watch both .js and .scss
 gulp.task('watch', function () {
-    gulp.watch('./www/wp-content/themes/' + themename +'/assets/css/src/**/*.scss', ['sass']);
-    gulp.watch('./www/wp-content/themes/' + themename +'/assets/js/src/**/*.js', ['scripts']);
+    gulp.watch('./www/wp-content/themes/' + themename +'/assets/css/src/**/*.scss', gulp.series('sass'));
+    gulp.watch('./www/wp-content/themes/' + themename +'/assets/js/src/**/*.js', gulp.series('scripts'));
 });
 
 // Default task is the watch task
-gulp.task('default', ['watch']);
+gulp.task('default', gulp.series('watch'));

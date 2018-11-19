@@ -47,6 +47,14 @@ By default the `WORDPRESS_DEBUG` environment variable is set to true (`1`). In p
 
 _You can do that. But there are better ways. Let's update this later!_
 
+## Changes
+
+### 2018.11.19
+- Bumped gulp version in package.json to 4.0.0 
+- Updated gulpfile.js to work with gulp@4.0.0
+
+If you run into an error while running `gulp watch` check [this issue/comment](https://github.com/gulpjs/gulp-cli/issues/84#issuecomment-272958709).
+
 ## Todo
 - Gulp image optimization (wp-content/uploads/)
 - Add production workflow -> docker-compose.prod.yml
