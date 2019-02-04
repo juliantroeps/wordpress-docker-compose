@@ -1,0 +1,33 @@
+sudo: required
+
+services:
+    - docker
+
+env:
+  global:
+    - DOCKER_COMPOSE_VERSION=1.6.0
+
+branches:
+  only:
+  - master
+  except:
+  - development
+
+before_install:
+    - sudo rm -f /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+    - chmod +x docker-compose
+    - chmod +x ./test/test.sh
+    - sudo mv docker-compose /usr/local/bin
+    - ls
+
+before_script:
+  - docker-compose up -d
+
+script:
+  - cd ./test
+  - chmod +x test.sh
+  - sh test.sh
+
+after_script:
+  - docker-compose down
