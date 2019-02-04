@@ -2,10 +2,11 @@ version: '2'
 services:
   wordpress:
     image: wordpress:latest
+    container_name: wpd-wordpress
     ports:
       - 3001:80
     volumes:
-      - ./php_config/php.conf.uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./config/php.ini:/usr/local/etc/php/conf.d/uploads.ini
       - ./www:/var/www/html
     environment:
       WORDPRESS_DB_HOST: mysql
@@ -19,6 +20,7 @@ services:
 
   database:
     image: mariadb
+    container_name: wpd-mariadb
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_ROOT_PASSWORD: password
