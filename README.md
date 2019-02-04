@@ -1,4 +1,4 @@
-# Wordpress docker-compose Starterkit
+# Wordpress docker-compose Starterkit [![Build Status](https://travis-ci.com/juliantroeps/wordpress-docker-compose.svg?branch=master)](https://travis-ci.com/juliantroeps/wordpress-docker-compose)
 Local WordPress development with docker-compose and gulp-sass.
 
 ## Container
