@@ -49,6 +49,9 @@ _You can do that. But there are better ways. Let's update this later!_
 
 ## Changes
 
+### 2019.04.03
+- Fixed bug in export script, argument now working
+
 ### 2018.11.19
 - Bumped gulp version in package.json to 4.0.0 
 - Updated gulpfile.js to work with gulp@4.0.0
