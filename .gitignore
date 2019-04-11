@@ -13,9 +13,10 @@
 
 # Development stuff ==============================
 
-## !php_config
+## !phpconfig
 ## !data/
 ## !docs/
+## !tools/
 
 # Keep the important files =======================
 
