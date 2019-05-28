@@ -11,12 +11,14 @@ const rename        = require('gulp-rename');
 const uglify        = require('gulp-uglify');
 const buffer        = require('vinyl-buffer');
 const log           = require('fancy-log');
+const replace       = require('gulp-replace');
 
 // Theme-Name
-const themename = "productware";
+const themename = "UPDATE_THIS";
 
 // Path to assets
-const assets_path = './www/wp-content/themes/' + themename + '/assets/';
+const theme_path    = './www/wp-content/themes/' + themename;
+const assets_path   = theme_path + '/assets/';
 
 // Ordered scripts for gulp-concat (add your main file last)
 const jsfiles = [
@@ -35,8 +37,8 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(assets_path + 'css/dist'));
 });
 
-// Main script compiling
-gulp.task('scripts', function() {
+// Everything in separate files
+gulp.task('scripts_single', function() {
     return gulp.src(assets_path + 'js/src/**/*.js')
         .pipe(sourcemaps.init())
         .pipe(babel({
@@ -50,8 +52,8 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest(assets_path + 'js/dist'));
 });
 
-// Concatenate all scripts from jsfiles array
-gulp.task('scripts_concat', function() {
+// Single file from jsfiles-Array
+gulp.task('scripts', function() {
     return gulp.src(jsfiles)
         .pipe(babel({
             presets: [[ "@babel/env", { modules: false } ]]
@@ -64,10 +66,21 @@ gulp.task('scripts_concat', function() {
         .pipe(gulp.dest(assets_path + 'js/dist'));
 });
 
+// Update the version string in functions.php (Epoch timestamp)
+gulp.task('asset_version', () => {
+    const version = Math.floor(new Date().getTime()/1000);
+    return gulp.src(theme_path + '/functions.php')
+        .pipe(replace(/(?<=')([0-9]!*){10}(?=')/g, (match) => {
+            console.log('Replace ' + match + ' with ' + version + '.');
+            return version;
+        }))
+        .pipe(gulp.dest(theme_path));
+});
+
 // We watch both .js and .scss
 gulp.task('watch', function () {
-    gulp.watch('./www/wp-content/themes/' + themename +'/assets/css/src/**/*.scss', gulp.series('sass'));
-    gulp.watch('./www/wp-content/themes/' + themename +'/assets/js/src/**/*.js', gulp.series('scripts_concat'));
+    gulp.watch(theme_path + '/assets/css/src/**/*.scss', gulp.series('sass', 'asset_version'));
+    gulp.watch(theme_path + '/assets/js/src/**/*.js', gulp.series('scripts', 'asset_version'));
 });
 
 // Default task is the watch task

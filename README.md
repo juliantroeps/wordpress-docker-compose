@@ -49,6 +49,10 @@ _You can do that. But there are better ways. Let's update this later!_
 
 ## Changes
 
+### 2019.05.28
+
+- Updated Gulpfile with automated version bump (Unix Epoch Timestamp)
+
 ### 2019.04.11
 - Updated gulp-workflow for ES6 with Babel
 - Empty ./data in GitHub
@@ -59,7 +63,7 @@ _You can do that. But there are better ways. Let's update this later!_
 - Fixed bug in export script, argument now working
 
 ### 2018.11.19
-- Bumped gulp version in package.json to 4.0.0 
+- Bumped gulp version in package.json to 4.0.0
 - Updated gulpfile.js to work with gulp@4.0.0
 
 If you run into an error while running `gulp watch` check [this issue/comment](https://github.com/gulpjs/gulp-cli/issues/84#issuecomment-272958709).
