@@ -49,6 +49,10 @@ _You can do that. But there are better ways. Let's update this later!_
 
 ## Changes
 
+### 2019.06.03
+
+- Updated Gulpfile with image optimization (gulp-imagemin without special config)
+
 ### 2019.05.28
 
 - Updated Gulpfile with automated version bump (Unix Epoch Timestamp)
@@ -69,5 +73,4 @@ _You can do that. But there are better ways. Let's update this later!_
 If you run into an error while running `gulp watch` check [this issue/comment](https://github.com/gulpjs/gulp-cli/issues/84#issuecomment-272958709).
 
 ## Todo
-- Gulp image optimization (wp-content/uploads/)
 - Add production workflow -> docker-compose.prod.yml

@@ -12,6 +12,7 @@ const uglify        = require('gulp-uglify');
 const buffer        = require('vinyl-buffer');
 const log           = require('fancy-log');
 const replace       = require('gulp-replace');
+const imagemin      = require('gulp-imagemin');
 
 // Theme-Name
 const themename = "UPDATE_THIS";
@@ -19,6 +20,7 @@ const themename = "UPDATE_THIS";
 // Path to assets
 const theme_path    = './www/wp-content/themes/' + themename;
 const assets_path   = theme_path + '/assets/';
+const uploads_path  = './www/wp-content/uploads/';
 
 // Ordered scripts for gulp-concat (add your main file last)
 const jsfiles = [
@@ -77,10 +79,25 @@ gulp.task('asset_version', () => {
         .pipe(gulp.dest(theme_path));
 });
 
+// Theme images
+gulp.task('images', function() {
+    return gulp.src(assets_path + 'img/**/*.*')
+        .pipe(imagemin())
+        .pipe(gulp.dest(assets_path + 'img/sm'));
+});
+
+// Uploads images
+gulp.task('uploads', function() {
+    return gulp.src(uploads_path + '**/*.*')
+        .pipe(imagemin())
+        .pipe(gulp.dest(uploads_path + '**/*.*'));
+});
+
 // We watch both .js and .scss
 gulp.task('watch', function () {
     gulp.watch(theme_path + '/assets/css/src/**/*.scss', gulp.series('sass', 'asset_version'));
     gulp.watch(theme_path + '/assets/js/src/**/*.js', gulp.series('scripts', 'asset_version'));
+    gulp.watch(theme_path + '/assets/img/**/*.*', gulp.series('images'));
 });
 
 // Default task is the watch task
