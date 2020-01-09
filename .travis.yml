@@ -19,6 +19,7 @@ before_install:
     - chmod +x docker-compose
     - chmod +x ./test/test-script.sh
     - sudo mv docker-compose /usr/local/bin
+    - sudo chmod a+rx /usr/local/bin/docker-compose
     - ls
 
 before_script:
