@@ -2,6 +2,7 @@ version: '2'
 services:
   wordpress:
     image: wordpress:latest
+    restart: always
     container_name: wpd-wordpress
     ports:
       - 3001:80

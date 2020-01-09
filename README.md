@@ -1,43 +1,70 @@
-# Wordpress docker-compose Starterkit [![Build Status](https://travis-ci.com/juliantroeps/wordpress-docker-compose.svg?branch=master)](https://travis-ci.com/juliantroeps/wordpress-docker-compose)
-Local WordPress development with docker-compose and gulp-sass.
+# WordPress Development with Docker and Webpack [![Build Status](https://travis-ci.com/juliantroeps/wordpress-docker-compose.svg?branch=master)](https://travis-ci.com/juliantroeps/wordpress-docker-compose)
 
-## Container
-- WordPress from `wordpress:latest`
-- MySQL from `mariadb`
-
-##### Examples:
-
-- `:latest` to get the latest image
-- `:5.1.0` to get the specific WordPress version (5.1.0 in this case)
-- `:5.1.0-alpine` to get the specific WordPress version in an [Alpine Linux](http://alpinelinux.org) image (smaller in size)
-
-See [Dockerhub WordPress](https://hub.docker.com/_/wordpress/) for available tags.
+Develop your WordPress-Theme or -Plugin locally with **Docker Compose** and **Webpack 4 with ES6**.
 
 ## Getting started
-- `git clone https://github.com/juliantroeps/WordPress-docker-compose.git myproject`
-- `cd myproject` and `docker-compose up` or `docker-compose up -d`
-- `open http://localhost:3001` and install your WordPress-Site
+- `git clone https://github.com/juliantroeps/WordPress-docker-compose.git myproject` where "myproject" will be your root directory
+- `docker-compose up` or `docker-compose up -d` to build the container
+- `open http://localhost:3001` and install your WordPress site
 
-If you want to push this into your own repo remove the `.git` folder, `git init` and update the `.gitignore` based on your themename
+If you want to build a WordPress-Network change the WordPress service port to ``80:80`` before building the container.
 
-Change the docker-file wordpress-service port to `80:80` if you want to build a WordPress-Network.
+#### Directory structure for Webpack
+
+The paths set in the ``webpacl.config.js`` are created for the following project structure.
+
+```
+| docker-compose.yml
+| webpack.config.js
+| www
+|   | index.php
+|   | wp-config.php
+|   | wp-content.js
+|   |   | themes
+|   |   |   | THEME_NAME
+|   |   |   |   | lang
+|   |   |   |   | assets
+|   |   |   |   |   | assets
+|   |   |   |   |   |   | dist
+|   |   |   |   |   |   | src
+|   |   |   |   |   |   |   | css
+|   |   |   |   |   |   |   |   | app.scss
+|   |   |   |   |   |   |   |   | _partial.scss
+|   |   |   |   |   |   |   |   | ...
+|   |   |   |   |   |   |   | js
+|   |   |   |   |   |   |   |   | app.js
+|   |   |   |   |   |   |   |   | plugin.jquery.js
+|   |   |   |   |   |   |   |   | ...
+|   |   |   |   |   |   |   | fonts
+|   |   |   |   |   |   |   | img
+|   |   |   |   | index.php
+|   |   |   |   | functions.php
+|   |   |   |   | style.css
+|   |   |   |   | ...
+|   |   |   | ...
+|   |   | ...
+|   | ...
+| ...
+```
 
 ## Tools
 
-#### Create theme
+### Create theme
 - cd into ./tools
 - Run `sh createtheme.sh your-theme-name` to create empty theme files
 
-#### Gulp taskrunner
-- Update themename variable in `gulpfile.babel.js`
-- Run `yarn install`
-- Run `gulp` or `gulp watch` to watch for styles (sass) and scripts (js)
+### Webpack
+Webpack is used for SASS processing and to bundle JavaScript files. You can use ES6 syntax and import directly from node_modules.
 
-#### Backups
+Update the ``THEME_NAME`` string to your theme in the ``path`` object in the webpack.config.js. Optionally update the path.
+
+Run `npm run dev` or `yarn dev` to watch for file changes and build on the fly and use `npm run prod` or `yarn prod` to optimze the output.
+
+### Backups
 - cd into ./tools
 - Run `sh export.sh` to create a zipped database drop, `sh export.sh true` to gzip the filesystem to.
 
-#### Using existing content
+### Using existing content
 Put your .sql file inside `./data` and run `docker-compose up` to use your data instead of creating empty tables.
 Make sure to update the wpd_wordpress environment variable `WORDPRESS_TABLE_PREFIX` in the `docker-compose.yml` file. (default is wpd\_)
 
@@ -48,6 +75,10 @@ By default the `WORDPRESS_DEBUG` environment variable is set to true (`1`). In p
 _You can do that. But there are better ways. Let's update this later!_
 
 ## Changes
+
+### 2020.01.09
+
+- Removed gulp in favor for Webpack 4
 
 ### 2019.06.03
 
