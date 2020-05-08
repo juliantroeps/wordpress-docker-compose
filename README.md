@@ -49,10 +49,6 @@ The paths set in the ``webpacl.config.js`` are created for the following project
 
 ## Tools
 
-### Create theme
-- cd into ./tools
-- Run `sh createtheme.sh your-theme-name` to create empty theme files
-
 ### Webpack
 Webpack is used for SASS processing and to bundle JavaScript files. You can use ES6 syntax and import directly from node_modules.
 
@@ -75,6 +71,13 @@ By default the `WORDPRESS_DEBUG` environment variable is set to true (`1`). In p
 _You can do that. But there are better ways. Let's update this later!_
 
 ## Changes
+
+### 2020.05.08
+
+- Removed .browserslistrc, moved to package.json
+- Updated webpack.config.js for multiple input->output (multiple js apps in one theme)
+- Added postcss-loader to webpack.config.js
+- Remove create-theme tool
 
 ### 2020.01.09
 

@@ -1,22 +1,19 @@
 const path = require('path');
 
-const webpack                   = require('webpack');
-const UglifyJSPlugin            = require('uglifyjs-webpack-plugin');
-const MiniCssExtractPlugin      = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin }    = require('clean-webpack-plugin');
-const TerserPlugin              = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin   = require('optimize-css-assets-webpack-plugin');
-const CopyPlugin                = require('copy-webpack-plugin');
+const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
-module.exports = function(env) {
-    const mode = env.NODE_ENV || 'development';
-    const extensionPrefix = mode === 'production' ? '' : '';
-    const showMaps = mode === 'development';
+module.exports = function (env) {
+    const mode      = env.NODE_ENV || 'development';
+    const showMaps  = (mode === 'development');
+    let opti;
 
-    // Optimizations
-    let opti = {};
-
-    if(mode === 'production') {
+    if (mode === 'production') {
         opti = {
             minimize: true,
             minimizer: [
@@ -84,111 +81,129 @@ module.exports = function(env) {
 
     // The property names will be the file names, the values are the files that should be included.
     const entry = {
-        app: [
-            paths.theme + 'assets/src/js/app.js',
-            paths.theme + 'assets/src/css/app.scss',
+        theme: [
+            paths.theme + 'assets/src/js/theme.js',
+            paths.theme + 'assets/src/css/theme.scss',
         ],
         editor: paths.theme + 'assets/src/css/editor.scss',
         admin: paths.theme + 'assets/src/css/admin.scss',
     };
 
-    const config = {
+
+    const plugins = [
+        new CopyPlugin([
+            {from: paths.theme_alt + '/assets/src/img/', to: paths.theme_alt + '/assets/dist/img/'},
+        ]),
+        new CleanWebpackPlugin({
+            dry: true,
+            cleanOnceBeforeBuildPatterns: [],
+            verbose: true
+        }),
+        new MiniCssExtractPlugin({
+            filename: paths.theme + 'assets/dist/css/[name].css'
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        })
+    ];
+
+    const module = {
+        rules: [
+            // perform js babelization on all .js files
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ['babel-preset-env']
+                    }
+                }
+            },
+            {
+                test: /\.css$/,
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true,
+                    config: {
+                        path: 'postcss.config.js'
+                    }
+                }
+            },
+            // compile all .scss files to plain old css
+            {
+                test: /\.(sass|scss)$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: showMaps
+                        }
+                    }, {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: showMaps,
+                        },
+                    },
+                ]
+            },
+            // Compile Fonts
+            {
+                test: /(\.(woff2?|ttf|eot|otf)$|font.*\.svg$)/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            regExp: /\/fonts\$/i,
+                            outputPath: publicPath + paths.font,
+                            publicPath: '../fonts/'
+                        }
+                    }
+                ]
+            },
+            {
+                test: /(\.(png|jpe?g|gif)$|^((?!font).)*\.svg$)/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            regExp: /\/img\$/i,
+                            outputPath: publicPath + paths.img,
+                            publicPath: '../img/'
+                        }
+                    }
+                ]
+            }
+        ]
+    };
+
+    const optimization = opti;
+
+    // Configs
+    const theme = {
         mode,
         entry,
         output: {
             path: path.resolve(__dirname),
-            publicPath,
-            filename: `${ paths.theme }${ paths.js }[name]${ extensionPrefix }.js`,
+            publicPath: 'www/wp-content/themes/THEME_NAME/',
+            filename: `${paths.theme}${paths.js}[name].js`,
         },
-        plugins: [
-            new CopyPlugin([
-                { from: paths.theme_alt + '/assets/src/img/', to: paths.theme_alt + '/assets/dist/img/' },
-            ]),
-            new CleanWebpackPlugin({
-                dry: true,
-                cleanOnceBeforeBuildPatterns: [],
-                verbose: true
-            }),
-            new MiniCssExtractPlugin({
-                filename: paths.theme + 'assets/dist/css/[name].css'
-            }),
-            new webpack.ProvidePlugin({
-                $: "jquery",
-                jQuery: "jquery"
-            })
-        ],
-        module: {
-            rules: [
-                // perform js babelization on all .js files
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    use: {
-                        loader: "babel-loader",
-                        options: {
-                            presets: ['babel-preset-env']
-                        }
-                    }
-                },
-                // compile all .scss files to plain old css
-                {
-                    test: /\.(sass|scss)$/,
-                    use: [
-                        MiniCssExtractPlugin.loader,
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: showMaps
-                            }
-                        }, {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: showMaps,
-                            },
-                        },
-                    ]
-                },
-                // Compile Fonts
-                {
-                    test: /(\.(woff2?|ttf|eot|otf)$|font.*\.svg$)/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: '[name].[ext]',
-                                regExp: /\/fonts\$/i,
-                                outputPath: publicPath + paths.font,
-                                publicPath: '../fonts/'
-                            }
-                        }
-                    ]
-                },
-                {
-                    test:  /(\.(png|jpe?g|gif)$|^((?!font).)*\.svg$)/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: '[name].[ext]',
-                                regExp: /\/img\$/i,
-                                outputPath: publicPath + paths.img,
-                                publicPath: '../img/'
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        optimization: opti
+        plugins,
+        module,
+        optimization
     };
 
     if (mode !== 'production') {
         console.log('Creating source-maps.');
-        config.devtool = 'cheap-module-source-map';
+        theme.devtool = 'cheap-module-source-map';
     } else {
         console.log('Skipping source-maps.');
-        config.devtool = 'none';
+        theme.devtool = 'none';
     }
 
-    return config;
+    return [theme];
 };

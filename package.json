@@ -9,6 +9,14 @@
     "repository": "https://github.com/juliantroeps/wordpress-docker-compose",
     "license": "MIT",
     "author": "Julian Troeps",
+    "browserslist": [
+        "defaults",
+        "not ie < 11",
+        "last 2 versions",
+        "> 1%",
+        "iOS 7",
+        "last 3 iOS versions"
+    ],
     "devDependencies": {
         "@babel/core": "^7.6.0",
         "autoprefixer": "^9.6.1",
