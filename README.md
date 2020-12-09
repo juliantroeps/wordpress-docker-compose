@@ -11,7 +11,7 @@ If you want to build a WordPress-Network change the WordPress service port to ``
 
 #### Directory structure for Webpack
 
-The paths set in the ``webpacl.config.js`` are created for the following project structure.
+The paths set in the ``webpack.config.js`` are created for the following project structure.
 
 ```
 | docker-compose.yml
@@ -72,6 +72,13 @@ _You can do that. But there are better ways. Let's update this later!_
 
 ## Changes
 
+### 2020.12.09
+
+- Cleanup webpack conf
+- Removed comma from package.json
+- .env file instead of declaring in docker-compose file
+- remove dump.sh and .idea folder
+
 ### 2020.05.08
 
 - Removed .browserslistrc, moved to package.json
@@ -108,3 +115,5 @@ If you run into an error while running `gulp watch` check [this issue/comment](h
 
 ## Todo
 - Add production workflow -> docker-compose.prod.yml
+- Switch to Github Actions
+- Extend testing

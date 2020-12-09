@@ -2,28 +2,21 @@ version: '2'
 services:
   wordpress:
     image: wordpress:latest
-    restart: always
     container_name: wpd-wordpress
     ports:
       - 3001:80
     volumes:
       - ./config/php.ini:/usr/local/etc/php/conf.d/uploads.ini
       - ./www:/var/www/html
-    environment:
-      WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: password
-      WORDPRESS_TABLE_PREFIX: wpd_
-      WORDPRESS_DEBUG: 1
+    env_file:
+      - config/.env
     links:
       - database:mysql
 
   database:
     image: mariadb
     container_name: wpd-mariadb
-    environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_ROOT_PASSWORD: password
+    env_file:
+      - config/.env
     volumes:
       - ./data:/docker-entrypoint-initdb.d

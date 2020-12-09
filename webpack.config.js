@@ -8,6 +8,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
+// Change this
+const theme_name = "THEME_NAME";
+
 module.exports = function (env) {
     const mode      = env.NODE_ENV || 'development';
     const showMaps  = (mode === 'development');
@@ -66,11 +69,11 @@ module.exports = function (env) {
     }
 
     // This is the URL path relative to the root domain.
-    const publicPath = 'www/wp-content/themes/THEME_NAME/';
+    const publicPath = `www/wp-content/themes/${theme_name}/`;
 
     // These are the paths where different types of resources should end up.
     const paths = {
-        theme: './www/wp-content/themes/THEME_NAME/',
+        theme: './' + publicPath,
         css: 'assets/dist/css/',
         img: 'assets/dist/img/',
         font: 'assets/dist/fonts/',
@@ -189,7 +192,7 @@ module.exports = function (env) {
         entry,
         output: {
             path: path.resolve(__dirname),
-            publicPath: 'www/wp-content/themes/THEME_NAME/',
+            publicPath,
             filename: `${paths.theme}${paths.js}[name].js`,
         },
         plugins,
